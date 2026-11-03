@@ -18,38 +18,49 @@ program_name = "---Sunset player---"
 has_songs = True
 finished = False
 is_paused = False
+index_music = 0
+
+player = MediaPlayer()
+#list of music
+music_list = []
+
+for music in Folder.iterdir():
+    if music.is_file() and music.suffix.lower() in [".mp3", ".flac", ".ogg", ".wav", ".m4a"]:
+        music_list.append(music)
+
+if not music_list:
+    print("This folder doesn't have any music!")
+    sys.exit()
 
 #Functions
-#we play
 def playing(stdscr):
+
+    #make global this var.
     global is_paused
     global program_name
+    global index_music
+    global player
 
     #curses setup
     stdscr.nodelay(True)
 
+    while True:
+        #Turn on music
+        player.set_mrl(str(music_list[index_music]))
 
-    #Finding a music
-    for music in Folder.iterdir():
+        player.play()
 
-        if music.is_file() and music.suffix.lower() in [".mp3", ".flac", ".ogg", ".wav", ".m4a"]:
-
-                   
-            player = MediaPlayer(str(music))
-            player.play()
-            time.sleep(0.5)
-
-            musics = TinyTag.get(music)
-            current_music = "Now playing: " + f"{musics.title or music.name}"
-            current_Author = "Author: " + f"{musics.artist or "author that you may know"}"
-            current_Folder = "From folder: " + f"{str(Folder)}"
-            drawer.draw_information(stdscr, program_name, current_music, current_Author, current_Folder)
-
-            while player.is_playing() or is_paused:
+        musics = TinyTag.get(str(music_list[index_music]))
+        current_music = "Now playing: " + f"{musics.title or music_list[index_music].name}"
+        current_Author = "Author: " + f"{musics.artist or "author that you may know"}"
+        current_Folder = "From folder: " + f"{str(Folder)}"
+        
+        drawer.draw_information(stdscr, program_name, current_music, current_Author, current_Folder)
+        while player.get_state() != State.Ended or is_paused:
                 
-                time.sleep(1)
+                time.sleep(0.5)
                 key = stdscr.getch()
-                if key == ord('x'):
+                if key == ord('x') or key == ord("ч"):
                     if is_paused:
                         player.play()
                         drawer.draw_information(stdscr, program_name, current_music, current_Author, current_Folder)
@@ -59,8 +70,17 @@ def playing(stdscr):
                         drawer.draw_information(stdscr, program_name, current_music + "[Stopped]", current_Author, current_Folder)
                         is_paused = True
                     time.sleep(0.3)
-               
-            player.stop()
 
+                if key == ord("c") or key == ord("с"):
+                    break
+
+                if key == ord("z") or key == ord("я"):
+                    index_music -= 2
+                    break
+        player.stop()
+        index_music = (index_music+1) % len(music_list)
+
+
+#Checking if main.py is a main file
 if __name__ == "__main__":
     curses.wrapper(playing)
