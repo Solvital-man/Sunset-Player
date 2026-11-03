@@ -8,7 +8,7 @@ import curses
 
 #Files
 import configuration
-
+import drawer
 #Variables from configuration
 Folder = Path(configuration.Folder)
 #Text
@@ -23,15 +23,11 @@ is_paused = False
 #we play
 def playing(stdscr):
     global is_paused
+    global program_name
 
     #curses setup
     stdscr.nodelay(True)
-    curses.start_color()
-    curses.use_default_colors()
-    curses.init_pair(1, curses.COLOR_YELLOW, -1)
-    curses.init_pair(2, curses.COLOR_MAGENTA, -1)
-    curses.init_pair(3, curses.COLOR_GREEN, -1)
-    curses.init_pair(4, curses.COLOR_CYAN, -1)
+
 
     #Finding a music
     for music in Folder.iterdir():
@@ -47,12 +43,7 @@ def playing(stdscr):
             current_music = "Now playing: " + f"{musics.title or music.name}"
             current_Author = "Author: " + f"{musics.artist or "author that you may know"}"
             current_Folder = "From folder: " + f"{str(Folder)}"
-            stdscr.clear()
-            stdscr.addstr(0, 0, program_name, curses.color_pair(1))
-            stdscr.addstr(1, 0, current_music, curses.color_pair(2))
-            stdscr.addstr(2, 0, current_Author,curses.color_pair(3))
-            #stdscr.addstr(3, 0, current_Folder,curses.color_pair(4))
-            stdscr.refresh()
+            drawer.draw_information(stdscr, program_name, current_music, current_Author, current_Folder)
 
             while player.is_playing() or is_paused:
                 
@@ -61,23 +52,15 @@ def playing(stdscr):
                 if key == ord('x'):
                     if is_paused:
                         player.play()
-                        stdscr.clear()
-                        stdscr.addstr(0, 0, program_name, curses.color_pair(1))
-                        stdscr.addstr(1, 0, current_music, curses.color_pair(2))
-                        stdscr.addstr(2, 0, current_Author,curses.color_pair(3))
-                        #stdscr.addstr(3, 0, current_Folder,curses.color_pair(4))
-                        stdscr.refresh()
+                        drawer.draw_information(stdscr, program_name, current_music, current_Author, current_Folder)
                         is_paused = False
                     else:
                         player.pause()
-                        stdscr.clear()
-                        stdscr.addstr(0, 0, program_name, curses.color_pair(1))
-                        stdscr.addstr(1, 0, current_music + "[Stopped]", curses.color_pair(2))
-                        stdscr.addstr(2, 0, current_Author,curses.color_pair(3))
-                        #stdscr.addstr(3, 0, current_Folder,curses.color_pair(4))
-                        stdscr.refresh()
+                        drawer.draw_information(stdscr, program_name, current_music + "[Stopped]", current_Author, current_Folder)
                         is_paused = True
                     time.sleep(0.3)
                
             player.stop()
-curses.wrapper(playing)
+
+if __name__ == "__main__":
+    curses.wrapper(playing)
