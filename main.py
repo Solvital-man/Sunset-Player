@@ -9,17 +9,19 @@ import curses
 #Files
 import configuration
 import drawer
+import methods
+
 #Variables from configuration
 Folder = Path(configuration.Folder)
 #Text
 program_name = "---Sunset player---"
 
-#Variables in this script
-has_songs = True
+#Options in this script
 finished = False
 is_paused = False
 index_music = 0
-
+is_shuffled = False
+has_folder = True
 player = MediaPlayer()
 #list of music
 music_list = []
@@ -40,6 +42,7 @@ def playing(stdscr):
     global program_name
     global index_music
     global player
+    global is_shuffled
 
     #curses setup
     stdscr.nodelay(True)
@@ -54,8 +57,8 @@ def playing(stdscr):
         current_music = "Now playing: " + f"{musics.title or music_list[index_music].name}"
         current_Author = "Author: " + f"{musics.artist or "author that you may know"}"
         current_Folder = "From folder: " + f"{str(Folder)}"
-        
-        drawer.draw_information(stdscr, program_name, current_music, current_Author, current_Folder)
+        options = f"Shuffle: [{is_shuffled}], Always Repeat"
+        drawer.draw_information(stdscr, program_name, current_music, current_Author, current_Folder, options)
         while player.get_state() != State.Ended or is_paused:
                 
                 time.sleep(0.5)
@@ -66,11 +69,11 @@ def playing(stdscr):
                 if key == 'x' or key == "ч":
                     if is_paused:
                         player.play()
-                        drawer.draw_information(stdscr, program_name, current_music, current_Author, current_Folder)
+                        drawer.draw_information(stdscr, program_name, current_music, current_Author, current_Folder, options)
                         is_paused = False
                     else:
                         player.pause()
-                        drawer.draw_information(stdscr, program_name, current_music + "[Stopped]", current_Author, current_Folder)
+                        drawer.draw_information(stdscr, program_name, current_music + "[Stopped]", current_Author, current_Folder, options)
                         is_paused = True
                     time.sleep(0.3)
 
@@ -80,6 +83,8 @@ def playing(stdscr):
                 if key == "z" or key == "я":
                     index_music -= 2
                     break
+                if key == "q" or key == "й":
+                    sys.exit()
         player.stop()
         index_music = (index_music+1) % len(music_list)
 
