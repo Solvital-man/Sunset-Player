@@ -59,8 +59,11 @@ def playing(stdscr):
         while player.get_state() != State.Ended or is_paused:
                 
                 time.sleep(0.5)
-                key = stdscr.getch()
-                if key == ord('x') or key == ord("ч"):
+                try:
+                    key = stdscr.get_wch()
+                except curses.error:
+                    key = None
+                if key == 'x' or key == "ч":
                     if is_paused:
                         player.play()
                         drawer.draw_information(stdscr, program_name, current_music, current_Author, current_Folder)
@@ -71,10 +74,10 @@ def playing(stdscr):
                         is_paused = True
                     time.sleep(0.3)
 
-                if key == ord("c") or key == ord("с"):
+                if key == "c" or key == "с":
                     break
 
-                if key == ord("z") or key == ord("я"):
+                if key == "z" or key == "я":
                     index_music -= 2
                     break
         player.stop()
