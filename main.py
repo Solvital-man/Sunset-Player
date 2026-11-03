@@ -5,6 +5,7 @@ import os #exit & update text
 from pathlib import Path
 import time
 import curses
+import sys
 
 #Files
 import configuration
