@@ -41,6 +41,13 @@ python main.py
 ```
 7. Enjoy!
 
+### Windows Support (Experimental)
+The project is developed on Linux. For Windows, you need to install `windows-curses`:
+```bash
+pip install windows-curses
+```
+*Note: Some colors or keybindings (especially Cyrillic layout) might behave differently.*
+
 ## Images
 ![Sunset player. Now playing: 70. The place where it rained (DELTARUNE Chapter 3+4 Soundtrack) - Toby Fox.mp3 Author: author that you may know
 From folder: /home/Solvital/Music/Favourites
@@ -51,3 +58,4 @@ Shuffle: [False], Always Repeat
 From folder: /home/Solvital/Music/Favourites
 Shuffle: [True], Always Repeat
 [x] - Pause | [z] - Prev | [c] - Next | [s] - Shuffle | [r] - Repeat | [q] - Quit](Images/Screenshot-second.png)
+

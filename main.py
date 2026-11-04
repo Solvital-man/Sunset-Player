@@ -4,9 +4,17 @@ from tinytag import TinyTag #For audio tags
 import os #exit & update text
 from pathlib import Path
 import time
-import curses
 import sys
-
+import platform
+try:
+    import curses
+except:
+    if platform.system() == "Windows":
+        print("Download windows-curses using pip")
+        print("pip install windows-curses")
+        sys.exit()
+    else:
+        raise
 #Files
 import configuration
 import drawer
