@@ -5,7 +5,8 @@
 
 ## Description
 This is a TUI Sunset player by **Solvital**.
-Built-in libraries :
+
+Built-in libraries:
 - **sys**(for exit)
 - **pathlib**(for finding path and using it)
 - **curses**(For checking key presses & for terminal rendering)
