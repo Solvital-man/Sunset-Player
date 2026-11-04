@@ -28,8 +28,26 @@ Using libraries(Dependencies):
 ```bash
 pip install python-vlc tinytag
 ```
-4. run main.py file
+4. Navigate to the project folder
+5. Open configuration.py and update the Folder variable with your music directory path.
+
+*Make sure to keep the trailing slash / at the end of the path!*
+
+![](Images/Guide_image.png)
+
+6. Run main.py file
 ```bash
 python main.py
 ```
-5. Enjoy!
+7. Enjoy!
+
+## Images
+![Sunset player. Now playing: 70. The place where it rained (DELTARUNE Chapter 3+4 Soundtrack) - Toby Fox.mp3 Author: author that you may know
+From folder: /home/Solvital/Music/Favourites
+Shuffle: [False], Always Repeat
+[x] - Pause | [z] - Prev | [c] - Next | [s] - Shuffle | [r] - Repeat | [q] - Quit](Images/Screenshot-first.png)
+
+![Sunset player. Now playing: OneShot OST - On Little Cat Feet (ground) Author: James Wiseman
+From folder: /home/Solvital/Music/Favourites
+Shuffle: [True], Always Repeat
+[x] - Pause | [z] - Prev | [c] - Next | [s] - Shuffle | [r] - Repeat | [q] - Quit](Images/Screenshot-second.png)
