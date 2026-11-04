@@ -5,13 +5,14 @@
 
 ## Description
 This is a TUI Sunset player by **Solvital**.
-Using libraries(Built-in):
-- **os**(for exit)
+Built-in libraries :
+- **sys**(for exit)
 - **pathlib**(for finding path and using it)
 - **curses**(For checking key presses & for terminal rendering)
 - **time**(To use sleep method)
+- **platform**(For checking user's OS(may be important soon!))
 
-Using libraries(Dependencies):
+Dependencies libraries:
 - **python-vlc**(for audio)
 - **tinytag**(for audio tags)
 
@@ -42,11 +43,10 @@ python main.py
 7. Enjoy!
 
 ### Windows Support (Experimental)
-The project is developed on Linux. For Windows, you need to install `windows-curses`:
+The project is developed on Linux and MacOS natively. For Windows, you need to install `windows-curses`:
 ```bash
 pip install windows-curses
 ```
-*Note: Some colors or keybindings (especially Cyrillic layout) might behave differently.*
 
 ## Images
 ![Sunset player. Now playing: 70. The place where it rained (DELTARUNE Chapter 3+4 Soundtrack) - Toby Fox.mp3 Author: author that you may know

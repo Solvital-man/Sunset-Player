@@ -1,7 +1,6 @@
 #libraries
-from vlc import * #For audio
-from tinytag import TinyTag #For audio tags
-import os #exit & update text
+from vlc import *
+from tinytag import TinyTag
 from pathlib import Path
 import time
 import sys
@@ -27,10 +26,9 @@ program_name = "---Sunset player---"
 
 #Variables
 current_index = 0
-#Options in this script
 finished = False
 is_paused = False
-index_music = 0
+index_music = 0 
 is_shuffled = False
 has_folder = True
 player = MediaPlayer()
@@ -78,7 +76,7 @@ def playing(stdscr):
         
         while player.get_state() != State.Ended or is_paused:
                 
-                time.sleep(0.5)
+                time.sleep(0.1)
                 try:
                     key = stdscr.get_wch()
                 except curses.error:
