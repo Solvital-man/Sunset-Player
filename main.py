@@ -52,6 +52,7 @@ def playing(stdscr):
     global non_shuffled
     global music_list
     #curses setup
+    drawer.setup_drawers(stdscr)
     stdscr.nodelay(True)
 
     while True:
@@ -88,7 +89,7 @@ def playing(stdscr):
                 if key == "s" or key == "ы":
                     if not(is_shuffled):
                         current_index = index_music
-                        methods.Shuffle(music_list)
+                        music_list = methods.Shuffle(music_list)
                         is_shuffled = True
                     else:
                         is_shuffled = False
